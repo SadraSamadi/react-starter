@@ -1,6 +1,19 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import todos from '../todos/todos.reducer';
+import {createReducer} from '@reduxjs/toolkit';
+import {appInitFailure, appInitRequest, appInitSuccess} from './app.action';
+import {AppState} from './app.model';
 
-export default combineReducers({
-  todos
+const initialState: AppState = {
+  init: null
+};
+
+export const appReducer = createReducer(initialState, {
+  [appInitRequest.type]: state => {
+    state.init = 'request';
+  },
+  [appInitSuccess.type]: state => {
+    state.init = 'success';
+  },
+  [appInitFailure.type]: state => {
+    state.init = 'failure';
+  }
 });
